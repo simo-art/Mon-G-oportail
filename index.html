@@ -1,30 +1,58 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mon géoportail</title> <!-- Close the title tag properly -->
+    <meta charset="UTF-8">
+    <link rel="icon" href="C:/Users/PC/Desktop/iav_logo.png" type="image/x-icon">
+    <title>IAV</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+       /*      justify-content: flex-start; Titre en haut de la page */
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: white; /* Couleur du texte en blanc */
+            background-color: green; /* Couleur de fond verte  */
+            text-align: center;
+            padding: 15px 0; /* Espace autour du titre */
+            width: 100%; /* Remplit la largeur de la page */
+            margin: 0;
+        }
+
+        #map {
+            width: 95%; /* La carte occupe toute la largeur */
+            height: 1000px !important; /* Hauteur plus grande pour la carte */
+            border: 3px solid green;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
-<body>
-    <div id="map" style="width: 1200px; height: 600px;"></div>
+<body style="background-color: #e5f5f9;">
+     
+    <h1>Campus de l'Institut Agronomique Et Veterinaire Hassan II</h1>
+
+</br>
+    <div id="map" ></div>
 
     <script>
-        var map = L.map('map').setView([33.976540403810326, -6.866599339485469], 15);
+             var map = L.map('map').setView([33.976540403810326, -6.866599339485469], 15.6);
         	L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 		var marker = L.marker([33.976540403810326, -6.866599339485469]).addTo(map);
-		var circle = L.circle([33.975278, -6.865833], {
-    						color: 'red',
-    						fillColor: '#f03',
-    						fillOpacity: 0.5,
-    						radius: 800
-							}).addTo(map);
 		var polygon = L.polygon([
             [33.981389, -6.863889],
             [33.974444, -6.870556],
@@ -41,12 +69,13 @@
             [33.978611, -6.863333],
             [33.979444, -6.862500],
             [33.979167, -6.861667],
-            [33.980556, -6.860556]
+            [33.980556, -6.860556],
         ]).addTo(map);
 		marker.bindPopup("INSTITUT AGRONOMIQUE ET VETERINAIRE HASSAN II").openPopup();
-		circle.bindPopup("IAV");
 		polygon.bindPopup("Contour de l'IAV.");
 		var popup = L.popup();
+
+        var geojson = L.geojson(Batiment).addTo(map)
 
 function onMapClick(e) {
     popup
@@ -56,6 +85,12 @@ function onMapClick(e) {
 }
 
 map.on('click', onMapClick);
-    </script> <!-- Place your JavaScript code inside a <script> tag -->
+    </script>
+     
 </body>
 </html>
+
+
+
+
+
